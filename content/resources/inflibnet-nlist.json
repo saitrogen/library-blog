@@ -1,0 +1,9 @@
+{
+  "title": "inflibnet-nlist",
+  "category": "research-database",
+  "description": "INFLIBNET N-List provides access to e-resources like e-journals, e-books and other e-resources through institutional login for colleges covered under section 12B of UGC Act.",
+  "url": "https://nlist.inflibnet.ac.in/",
+  "featured": true,
+  "accessType": "institutional-login",
+  "order": 1
+}
