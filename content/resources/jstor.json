@@ -1,0 +1,9 @@
+{
+  "title": "jstor",
+  "category": "research-database",
+  "description": "JSTOR is a digital library of academic journals, books, and primary sources. Essential for humanities and social science research.",
+  "url": "https://www.jstor.org/",
+  "featured": false,
+  "accessType": "institutional-login",
+  "order": 4
+}

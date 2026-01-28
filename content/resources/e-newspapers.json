@@ -1,0 +1,9 @@
+{
+  "title": "e-newspapers",
+  "category": "digital-resource",
+  "description": "Digital access to major national and international newspapers including The Hindu, Times of India, Malayala Manorama, and more.",
+  "url": "https://example.com/enewspapers",
+  "featured": true,
+  "accessType": "free",
+  "order": 7
+}

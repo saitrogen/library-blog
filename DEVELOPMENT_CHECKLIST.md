@@ -31,31 +31,31 @@ Use this checklist to track progress through each phase. Check off items as comp
 ## Phase 2: Content Schema (Days 4-6)
 
 ### Collections to Implement
-- [ ] **Resource Links** (`resourceLinks`)
+- [x] **Resource Links** (`resourceLinks`)
   - Fields: title, category, description, url, icon, featured, accessType
   - Test: Create 3 sample resources
   
-- [ ] **Question Bank** (`questionBank`)
+- [x] **Question Bank** (`questionBank`)
   - Fields: title, level, semester, department, academicYear, googleDriveLink
   - Test: Add sample UG Sem 1 entry
   
-- [ ] **Blog Posts** (`blogPosts`)
+- [x] **Blog Posts** (`posts`)
   - Fields: title, type, publishDate, content, featuredImage, youtubeVideoId
   - Test: Create sample "New Arrivals" post
   
-- [ ] **Department Pages** (`departments`)
+- [x] **Department Pages** (`departments`)
   - Fields: name, description, coursesOffered, resources
   - Test: Create Computer Science dept page
   
-- [ ] **Static Pages** (`pages`)
+- [x] **Static Pages** (`pages`)
   - Fields: slug, title, content
   - Test: Create "About" page
 
 ### Validation
-- [ ] All 5 collections visible in admin
-- [ ] Forms are user-friendly
-- [ ] Preview works for each type
-- [ ] Can edit and update entries
+- [x] All 5 collections visible in admin
+- [x] Forms are user-friendly
+- [x] Preview works for each type
+- [x] Can edit and update entries
 
 ---
 
@@ -339,7 +339,7 @@ Use this checklist to track progress through each phase. Check off items as comp
 | Milestone | Target Date | Status |
 |-----------|-------------|--------|
 | Admin UI Working | Day 3 | ✅ Complete |
-| Content Schema Complete | Day 6 | ⏳ Pending |
+| Content Schema Complete | Day 6 | ✅ Complete |
 | All Content Migrated | Day 9 | ⏳ Pending |
 | Components Built | Day 13 | ⏳ Pending |
 | Blog Migrated | Day 16 | ⏳ Pending |
@@ -402,15 +402,16 @@ git push origin main
 
 ## Progress Tracking
 
-**Current Phase:** Phase 1 - Foundation Setup ✅ (mostly complete)  
-**Next Phase:** Phase 2 - Content Schema  
-**Overall Progress:** ~10% (Phase 1 nearly complete)
+**Current Phase:** Phase 2 - Content Schema ✅  
+**Next Phase:** Phase 3 - Folder Structure & Content  
+**Overall Progress:** ~20%
 
 **Daily Log:** (Update as you work)
 ```
 2026-01-28: Created implementation plan and checklist ✅
 2026-01-28: Phase 1 setup complete - Keystatic config and admin route created ✅
-2026-01-29: [Start Phase 2]
+2026-01-28: Phase 2 - Content schema implemented, sample content added, all routes working ✅
+2026-01-29: [Start Phase 3]
 2026-01-30: 
 2026-01-31: 
 ...

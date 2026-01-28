@@ -1,0 +1,9 @@
+{
+  "title": "springer-link",
+  "category": "research-database",
+  "description": "SpringerLink provides researchers with access to millions of scientific documents from journals, books, series, protocols and reference works.",
+  "url": "https://link.springer.com/",
+  "featured": true,
+  "accessType": "institutional-login",
+  "order": 3
+}

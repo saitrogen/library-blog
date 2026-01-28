@@ -1,0 +1,9 @@
+{
+  "title": "e-books-collection",
+  "category": "digital-resource",
+  "description": "Access thousands of e-books across various subjects including literature, science, commerce, and more. Available 24/7 for registered students and faculty.",
+  "url": "https://example.com/ebooks",
+  "featured": true,
+  "accessType": "institutional-login",
+  "order": 1
+}

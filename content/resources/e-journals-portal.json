@@ -1,0 +1,9 @@
+{
+  "title": "e-journals-portal",
+  "category": "digital-resource",
+  "description": "Peer-reviewed academic journals covering all departments. Access scholarly articles, research papers, and academic publications.",
+  "url": "https://example.com/ejournals",
+  "featured": true,
+  "accessType": "institutional-login",
+  "order": 2
+}

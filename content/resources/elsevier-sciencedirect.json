@@ -1,0 +1,9 @@
+{
+  "title": "elsevier-sciencedirect",
+  "category": "research-database",
+  "description": "ScienceDirect is a leading full-text scientific database offering journal articles and book chapters from more than 2,500 peer-reviewed journals.",
+  "url": "https://www.sciencedirect.com/",
+  "featured": false,
+  "accessType": "institutional-login",
+  "order": 8
+}
