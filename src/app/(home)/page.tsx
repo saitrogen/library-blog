@@ -161,7 +161,7 @@ export default async function HomePage() {
                   {questionBankUG.slice(0, 4).map((entry) => (
                     <li key={entry?.slug}>
                       <a
-                        href={entry?.driveLink || '#'}
+                        href={entry?.googleDriveLink || '#'}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-gray-700 hover:text-[#4a6741] text-sm"
@@ -195,7 +195,7 @@ export default async function HomePage() {
                   {questionBankPG.slice(0, 4).map((entry) => (
                     <li key={entry?.slug}>
                       <a
-                        href={entry?.driveLink || '#'}
+                        href={entry?.googleDriveLink || '#'}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-gray-700 hover:text-[#681e26] text-sm"
@@ -245,10 +245,10 @@ export default async function HomePage() {
                   href={`/posts/${post?.slug}`}
                   className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition group"
                 >
-                  {post?.coverImage && (
+                  {post?.featuredImage && (
                     <div className="aspect-video bg-gray-100 overflow-hidden">
                       <img
-                        src={post.coverImage}
+                        src={post.featuredImage}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition"
                       />
@@ -258,8 +258,8 @@ export default async function HomePage() {
                     <h3 className="font-semibold text-gray-800 mb-2 group-hover:text-[#681e26] transition line-clamp-2">
                       {post?.title}
                     </h3>
-                    {post?.excerpt && (
-                      <p className="text-sm text-gray-600 line-clamp-2 mb-3">{post.excerpt}</p>
+                    {post?.summary && (
+                      <p className="text-sm text-gray-600 line-clamp-2 mb-3">{post.summary}</p>
                     )}
                     <div className="text-xs text-gray-400">
                       {post?.publishDate &&
@@ -315,7 +315,6 @@ export default async function HomePage() {
                   <h3 className="font-semibold text-gray-800 text-sm group-hover:text-[#681e26] transition">
                     {dept?.name}
                   </h3>
-                  {dept?.code && <p className="text-xs text-gray-500 mt-1">{dept.code}</p>}
                 </Link>
               ))}
             </div>
