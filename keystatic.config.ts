@@ -51,6 +51,7 @@ export default config({
     ? {
         kind: 'github',
         repo: `${repoOwner}/${repoSlug}`,
+        branchPrefix: 'keystatic/', // Auto-prefix all branches created from Keystatic
       }
     : { kind: 'local' },
 
