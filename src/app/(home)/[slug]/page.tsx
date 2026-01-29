@@ -1,6 +1,7 @@
 import { getPage, getAllPages } from '@/lib/keystatic';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 export async function generateStaticParams() {
   const pages = await getAllPages();
@@ -27,9 +28,6 @@ export default async function StaticPage({ params }: { params: Promise<{ slug: s
   if (!page) {
     notFound();
   }
-
-  // Render MDX content
-  const Content = await page.content();
 
   const formatDate = (dateStr: string | null | undefined) => {
     if (!dateStr) return '';
@@ -63,9 +61,9 @@ export default async function StaticPage({ params }: { params: Promise<{ slug: s
           )}
         </header>
 
-        {/* Content */}
+        {/* Content - using next-mdx-remote for proper MDX rendering */}
         <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-blue-600">
-          <Content />
+          <MDXRemote source={await page.content()} />
         </div>
       </article>
     </main>

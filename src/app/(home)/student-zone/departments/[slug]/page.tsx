@@ -1,6 +1,7 @@
 import { getDepartment, getAllDepartments } from '@/lib/keystatic';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 export async function generateStaticParams() {
   const departments = await getAllDepartments();
@@ -28,9 +29,6 @@ export default async function DepartmentPage({ params }: { params: Promise<{ slu
   if (!department) {
     notFound();
   }
-
-  // Render MDX content
-  const Content = await department.description();
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-3xl">
@@ -62,9 +60,9 @@ export default async function DepartmentPage({ params }: { params: Promise<{ slu
           )}
         </header>
 
-        {/* Content */}
+        {/* Content - using next-mdx-remote for proper MDX rendering */}
         <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-blue-600">
-          <Content />
+          <MDXRemote source={await department.description()} />
         </div>
       </article>
     </main>
