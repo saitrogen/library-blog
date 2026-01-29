@@ -1,10 +1,20 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import './global.css';
 import { Inter } from 'next/font/google';
+import type { Metadata } from 'next';
 
 const inter = Inter({
   subsets: ['latin'],
 });
+
+export const metadata: Metadata = {
+  title: 'Amal Library',
+  description: 'Digital Library Resource Hub',
+  icons: {
+    icon: '/icon.png',
+    apple: '/apple-icon.png',
+  },
+};
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
