@@ -13,6 +13,9 @@ export async function GET() {
     KEYSTATIC_GITHUB_CLIENT_SECRET: !!process.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
     KEYSTATIC_SECRET: !!process.env.KEYSTATIC_SECRET,
     
+    // GitHub App Slug (required for GitHub mode)
+    NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG || '(not set)',
+    
     // Safe to show these values
     VERCEL_GIT_REPO_OWNER: process.env.VERCEL_GIT_REPO_OWNER || '(not set)',
     VERCEL_GIT_REPO_SLUG: process.env.VERCEL_GIT_REPO_SLUG || '(not set)',
@@ -24,5 +27,6 @@ export async function GET() {
     CLIENT_ID_LENGTH: process.env.KEYSTATIC_GITHUB_CLIENT_ID?.length || 0,
     CLIENT_SECRET_LENGTH: process.env.KEYSTATIC_GITHUB_CLIENT_SECRET?.length || 0,
     KEYSTATIC_SECRET_LENGTH: process.env.KEYSTATIC_SECRET?.length || 0,
+    APP_SLUG_LENGTH: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG?.length || 0,
   });
 }
