@@ -71,8 +71,18 @@ export async function getAllPosts() {
   const slugs = await reader.collections.posts.list();
   const posts = await Promise.all(
     slugs.map(async (slug) => {
-      const post = await reader.collections.posts.read(slug);
-      return post ? { slug, ...post } : null;
+      try {
+        const post = await reader.collections.posts.read(slug);
+        // Validate post has required fields and content function
+        if (post && typeof post.content === 'function' && post.title) {
+          return { slug, ...post };
+        }
+        console.warn(`[Keystatic] Skipping malformed post: ${slug}`);
+        return null;
+      } catch (error) {
+        console.error(`[Keystatic] Error reading post "${slug}":`, error);
+        return null;
+      }
     })
   );
   return posts
@@ -88,7 +98,18 @@ export async function getAllPosts() {
  * Get a single post by slug (with rendered content)
  */
 export async function getPost(slug: string) {
-  return reader.collections.posts.read(slug);
+  try {
+    const post = await reader.collections.posts.read(slug);
+    // Validate post has required content function
+    if (post && typeof post.content === 'function') {
+      return post;
+    }
+    console.error(`[Keystatic] Post "${slug}" missing content function - check file format`);
+    return null;
+  } catch (error) {
+    console.error(`[Keystatic] Error reading post "${slug}":`, error);
+    return null;
+  }
 }
 
 /**
