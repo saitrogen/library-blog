@@ -1,11 +1,28 @@
 import { config, collection, fields } from '@keystatic/core';
 
-// Use GitHub mode only in production with all required env vars
+// Use GitHub mode only in production with ALL required env vars
+// Missing any of these will fallback to local mode (no auth)
 const isGitHubMode =
   process.env.NODE_ENV === 'production' &&
   process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG &&
+  process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER &&
   process.env.KEYSTATIC_GITHUB_CLIENT_ID &&
-  process.env.KEYSTATIC_GITHUB_CLIENT_SECRET;
+  process.env.KEYSTATIC_GITHUB_CLIENT_SECRET &&
+  process.env.KEYSTATIC_SECRET;
+
+// Debug: Log which mode is being used (only in dev or build)
+if (process.env.NODE_ENV !== 'production' || process.env.VERCEL_ENV === 'preview') {
+  console.log('[Keystatic] Storage mode:', isGitHubMode ? 'github' : 'local');
+  if (!isGitHubMode) {
+    console.log('[Keystatic] Missing env vars for GitHub mode:',
+      !process.env.KEYSTATIC_GITHUB_CLIENT_ID && 'KEYSTATIC_GITHUB_CLIENT_ID',
+      !process.env.KEYSTATIC_GITHUB_CLIENT_SECRET && 'KEYSTATIC_GITHUB_CLIENT_SECRET',
+      !process.env.KEYSTATIC_SECRET && 'KEYSTATIC_SECRET',
+      !process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER && 'NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER',
+      !process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG && 'NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG'
+    );
+  }
+}
 
 export default config({
   storage: isGitHubMode
