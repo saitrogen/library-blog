@@ -5,18 +5,34 @@ import { config, collection, fields } from '@keystatic/core';
 const repoOwner = process.env.VERCEL_GIT_REPO_OWNER || process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER;
 const repoSlug = process.env.VERCEL_GIT_REPO_SLUG || process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG;
 
-// Use GitHub mode only in production with ALL required env vars
-// Missing any of these will fallback to local mode (no auth)
-const isGitHubMode =
-  process.env.NODE_ENV === 'production' &&
-  repoSlug &&
-  repoOwner &&
-  process.env.KEYSTATIC_GITHUB_CLIENT_ID &&
-  process.env.KEYSTATIC_GITHUB_CLIENT_SECRET &&
-  process.env.KEYSTATIC_SECRET;
+// Detect server vs client environment
+const isServer = typeof window === 'undefined';
 
-// Debug: Log which mode is being used
-if (typeof window === 'undefined') { // Server-side only
+// Determine GitHub mode differently for server vs client:
+// - Server: Validate ALL required env vars (secrets needed for API routes)
+// - Client: Only check production + repo exists (secrets aren't exposed to client)
+// Security note: This is safe because actual auth happens server-side via GitHub OAuth.
+// The client flag only determines which UI to render.
+const isGitHubMode = (() => {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const hasRepo = Boolean(repoOwner && repoSlug);
+
+  if (isServer) {
+    // Server-side: require all secrets for API route authentication
+    const hasSecrets = Boolean(
+      process.env.KEYSTATIC_GITHUB_CLIENT_ID &&
+      process.env.KEYSTATIC_GITHUB_CLIENT_SECRET &&
+      process.env.KEYSTATIC_SECRET
+    );
+    return isProduction && hasRepo && hasSecrets;
+  } else {
+    // Client-side: only check production + repo (secrets not available here)
+    return isProduction && hasRepo;
+  }
+})();
+
+// Debug: Log which mode is being used (server-side only)
+if (isServer) {
   console.log('[Keystatic] Storage mode:', isGitHubMode ? '🔐 github (auth required)' : '📁 local (no auth)');
   console.log('[Keystatic] Repo:', repoOwner && repoSlug ? `${repoOwner}/${repoSlug}` : 'not detected');
   if (!isGitHubMode && process.env.NODE_ENV === 'production') {
