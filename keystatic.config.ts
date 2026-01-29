@@ -165,7 +165,7 @@ export default config({
       label: 'Posts',
       slugField: 'title',
       path: 'content/posts/*/',
-      format: { contentField: 'content' },
+      format: { data: 'json' },
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
         type: fields.select({
@@ -222,7 +222,7 @@ export default config({
       label: 'Departments',
       slugField: 'name',
       path: 'content/departments/*/',
-      format: { contentField: 'description' },
+      format: { data: 'json' },
       schema: {
         name: fields.slug({ name: { label: 'Department Name' } }),
         description: fields.mdx({
@@ -246,7 +246,7 @@ export default config({
       label: 'Pages',
       slugField: 'title',
       path: 'content/pages/*/',
-      format: { contentField: 'content' },
+      format: { data: 'json' },
       schema: {
         title: fields.slug({ name: { label: 'Page Title' } }),
         content: fields.mdx({
