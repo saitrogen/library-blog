@@ -4,363 +4,288 @@ import {
   FileText,
   GraduationCap,
   Clock,
-  ExternalLink,
-  Lock,
-  Globe,
   Newspaper,
-  Building2,
-  ChevronRight,
-  Library,
+  Database,
+  Briefcase,
+  Settings,
   Search,
+  Library,
+  ArrowRight,
+  Calendar,
+  Bell,
 } from 'lucide-react';
-import {
-  getFeaturedResources,
-  getFeaturedPosts,
-  getAllDepartments,
-  getQuestionBankByFilter,
-} from '@/lib/keystatic';
+import { getAllPosts } from '@/lib/keystatic';
 
 export default async function HomePage() {
-  const [featuredResources, featuredPosts, departments, questionBankUG, questionBankPG] =
-    await Promise.all([
-      getFeaturedResources(),
-      getFeaturedPosts(),
-      getAllDepartments(),
-      getQuestionBankByFilter('ug'),
-      getQuestionBankByFilter('pg'),
-    ]);
+  const posts = await getAllPosts();
+  const recentPosts = posts.slice(0, 4);
 
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#681e26] to-[#4a1a1f] text-white py-16 px-4">
-        <div className="container mx-auto max-w-5xl text-center">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Library className="w-10 h-10 text-[#b08d55]" />
-            <h1 className="text-4xl md:text-5xl font-bold">Amal College Library</h1>
-          </div>
-          <p className="text-xl text-white/90 mb-6">Your Gateway to Knowledge</p>
-          <div className="flex items-center justify-center gap-2 text-white/80 mb-8">
-            <Clock className="w-5 h-5" />
-            <span>Open: 8:30 AM - 5:00 PM (Mon-Sat)</span>
-          </div>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/docs"
-              className="px-6 py-3 bg-white text-[#681e26] font-semibold rounded-lg hover:bg-white/90 transition flex items-center gap-2"
-            >
-              <Search className="w-5 h-5" />
-              Browse Catalog
-            </Link>
-            <Link
-              href="/question-bank"
-              className="px-6 py-3 bg-[#b08d55] text-white font-semibold rounded-lg hover:bg-[#9a7a4a] transition flex items-center gap-2"
-            >
-              <FileText className="w-5 h-5" />
-              Question Papers
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Resources Section */}
-      <section className="py-12 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-5xl">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <BookOpen className="w-7 h-7 text-[#681e26]" />
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Digital Resources</h2>
+      <section className="bg-linear-to-br from-[#681e26] to-[#4a1a1f] text-white py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+            <div className="lg:max-w-xl">
+              <div className="flex items-center gap-3 mb-4">
+                <Library className="w-10 h-10 text-[#b08d55]" />
+                <h1 className="text-3xl md:text-4xl font-bold">Amal Library</h1>
+              </div>
+              <p className="text-lg text-white/90 mb-6">
+                Your gateway to knowledge, research resources, and academic excellence.
+              </p>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg w-fit">
+                <Clock className="w-5 h-5 text-[#b08d55]" />
+                <span>Open: 8:30 AM - 5:00 PM (Mon-Fri)</span>
+              </div>
             </div>
-            <Link
-              href="/resources"
-              className="text-[#681e26] hover:text-[#4a1a1f] font-medium flex items-center gap-1 text-sm"
-            >
-              View All <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
 
-          {featuredResources.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {featuredResources.map((resource) => (
+            {/* Quick Search */}
+            <div className="bg-white/10 backdrop-blur rounded-2xl p-6 lg:w-96">
+              <h2 className="text-lg font-semibold mb-4">Quick Search</h2>
+              <form className="space-y-4">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search catalog..."
+                    className="w-full pl-10 pr-4 py-3 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b08d55]"
+                  />
+                </div>
                 <a
-                  key={resource?.slug}
-                  href={resource?.url || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md hover:border-[#681e26]/30 transition group"
+                  href="#"
+                  className="block w-full px-4 py-3 bg-[#b08d55] hover:bg-[#9a7d4a] text-white font-medium rounded-lg text-center transition"
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <span
-                      className={`px-2 py-1 text-xs rounded-full ${
-                        resource?.accessType === 'free'
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-amber-100 text-amber-700'
-                      }`}
-                    >
-                      {resource?.accessType === 'free' ? (
-                        <span className="flex items-center gap-1">
-                          <Globe className="w-3 h-3" /> Free Access
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-1">
-                          <Lock className="w-3 h-3" /> Institutional
-                        </span>
-                      )}
-                    </span>
-                    <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#681e26] transition" />
-                  </div>
-                  <h3 className="font-semibold text-gray-800 mb-2 group-hover:text-[#681e26] transition">
-                    {resource?.title}
-                  </h3>
-                  {resource?.description && (
-                    <p className="text-sm text-gray-600 line-clamp-2">{resource.description}</p>
-                  )}
-                  <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
-                    <span className="px-2 py-0.5 bg-gray-100 rounded">{resource?.category}</span>
-                  </div>
+                  Search Web OPAC
                 </a>
-              ))}
+              </form>
             </div>
-          ) : (
-            <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
-              <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500">No featured resources yet.</p>
-              <Link href="/admin" className="text-[#681e26] hover:underline text-sm mt-2 inline-block">
-                Add resources in admin →
-              </Link>
-            </div>
-          )}
+          </div>
         </div>
       </section>
 
-      {/* Question Bank Quick Access */}
-      <section className="py-12 px-4 bg-white">
-        <div className="container mx-auto max-w-5xl">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <FileText className="w-7 h-7 text-[#4a6741]" />
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Question Papers</h2>
-            </div>
-            <Link
-              href="/question-bank"
-              className="text-[#4a6741] hover:text-[#3a5331] font-medium flex items-center gap-1 text-sm"
-            >
-              Browse All <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
+      {/* Main Navigation Cards */}
+      <section className="max-w-6xl mx-auto px-4 -mt-8">
+        <div className="grid md:grid-cols-3 gap-4">
+          <NavCard
+            href="/resources-hub"
+            icon={Database}
+            title="Resources Hub"
+            description="E-Journals, E-Books, and Research Databases"
+            color="bg-blue-500"
+          />
+          <NavCard
+            href="/student-zone"
+            icon={GraduationCap}
+            title="Student Zone"
+            description="Question Banks, Departments, Career Resources"
+            color="bg-green-500"
+          />
+          <NavCard
+            href="/services"
+            icon={Settings}
+            title="Services"
+            description="Forms, Research Assist, Ask a Librarian"
+            color="bg-purple-500"
+          />
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* UG Papers */}
-            <div className="bg-gradient-to-br from-[#4a6741]/10 to-[#4a6741]/5 rounded-xl p-6 border border-[#4a6741]/20">
-              <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
-                <GraduationCap className="w-5 h-5 text-[#4a6741]" />
-                Undergraduate (UG)
-              </h3>
-              {questionBankUG.length > 0 ? (
-                <ul className="space-y-2 mb-4">
-                  {questionBankUG.slice(0, 4).map((entry) => (
-                    <li key={entry?.slug}>
-                      <a
-                        href={entry?.googleDriveLink || '#'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-gray-700 hover:text-[#4a6741] text-sm"
-                      >
-                        <FileText className="w-4 h-4" />
-                        {entry?.title}
-                        <ExternalLink className="w-3 h-3 ml-auto" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-gray-500 text-sm mb-4">No UG papers available yet.</p>
-              )}
+      {/* News Feed Section */}
+      <section className="max-w-6xl mx-auto px-4 py-12">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-[#681e26]/10 rounded-lg">
+              <Bell className="w-5 h-5 text-[#681e26]" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800">News & Announcements</h2>
+          </div>
+          <Link
+            href="/posts"
+            className="flex items-center text-[#681e26] hover:underline text-sm font-medium"
+          >
+            View All
+            <ArrowRight className="w-4 h-4 ml-1" />
+          </Link>
+        </div>
+
+        {recentPosts.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {recentPosts.map((post) => (
               <Link
-                href="/question-bank?level=ug"
-                className="text-[#4a6741] hover:underline text-sm font-medium"
+                key={post?.slug}
+                href={`/posts/${post?.slug}`}
+                className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition group"
               >
-                View all UG papers →
+                <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                  <Calendar className="w-3 h-3" />
+                  {post?.publishDate &&
+                    new Date(post.publishDate).toLocaleDateString('en-IN', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                </div>
+                <h3 className="font-semibold text-gray-800 group-hover:text-[#681e26] transition line-clamp-2 mb-2">
+                  {post?.title}
+                </h3>
+                {post?.summary && (
+                  <p className="text-sm text-gray-600 line-clamp-2">{post.summary}</p>
+                )}
+                <span className="inline-block mt-3 px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded capitalize">
+                  {post?.type?.replace('-', ' ')}
+                </span>
               </Link>
-            </div>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-gray-50 rounded-xl border border-gray-200 p-8 text-center">
+            <Newspaper className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+            <p className="text-gray-500">No recent announcements</p>
+          </div>
+        )}
+      </section>
 
-            {/* PG Papers */}
-            <div className="bg-gradient-to-br from-[#681e26]/10 to-[#681e26]/5 rounded-xl p-6 border border-[#681e26]/20">
-              <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
-                <GraduationCap className="w-5 h-5 text-[#681e26]" />
-                Postgraduate (PG)
-              </h3>
-              {questionBankPG.length > 0 ? (
-                <ul className="space-y-2 mb-4">
-                  {questionBankPG.slice(0, 4).map((entry) => (
-                    <li key={entry?.slug}>
-                      <a
-                        href={entry?.googleDriveLink || '#'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-gray-700 hover:text-[#681e26] text-sm"
-                      >
-                        <FileText className="w-4 h-4" />
-                        {entry?.title}
-                        <ExternalLink className="w-3 h-3 ml-auto" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-gray-500 text-sm mb-4">No PG papers available yet.</p>
-              )}
+      {/* Quick Links Grid */}
+      <section className="max-w-6xl mx-auto px-4 pb-12">
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* E-Resources Quick Access */}
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <BookOpen className="w-5 h-5 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800">Popular E-Resources</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <QuickLink href="https://nlist.inflibnet.ac.in/" label="N-LIST" sublabel="INFLIBNET" />
+              <QuickLink href="https://link.springer.com/" label="Springer" sublabel="Journals" />
+              <QuickLink href="https://www.jstor.org/" label="JSTOR" sublabel="Academic" />
+              <QuickLink href="https://www.sciencedirect.com/" label="Elsevier" sublabel="ScienceDirect" />
+            </div>
+            <Link
+              href="/resources-hub/databases"
+              className="mt-4 inline-flex items-center text-sm text-[#681e26] hover:underline"
+            >
+              View all databases
+              <ArrowRight className="w-4 h-4 ml-1" />
+            </Link>
+          </div>
+
+          {/* Student Resources */}
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-green-100 rounded-lg">
+                <FileText className="w-5 h-5 text-green-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800">Student Resources</h3>
+            </div>
+            <div className="space-y-2">
               <Link
-                href="/question-bank?level=pg"
-                className="text-[#681e26] hover:underline text-sm font-medium"
+                href="/student-zone/question-banks"
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
               >
-                View all PG papers →
+                <span className="font-medium text-gray-700">Question Banks</span>
+                <span className="text-xs text-gray-500">UG & PG Papers</span>
+              </Link>
+              <Link
+                href="/student-zone/career-exams"
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
+              >
+                <span className="font-medium text-gray-700">Career & Exams</span>
+                <span className="text-xs text-gray-500">NET, SET, PSC</span>
+              </Link>
+              <Link
+                href="/student-zone/departments"
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
+              >
+                <span className="font-medium text-gray-700">Departments</span>
+                <span className="text-xs text-gray-500">Dept Libraries</span>
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Recent Updates / Latest News */}
-      <section className="py-12 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-5xl">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <Newspaper className="w-7 h-7 text-[#b08d55]" />
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Latest News</h2>
+      {/* Library Info Footer */}
+      <section className="bg-gray-50 border-t border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 py-12">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <h4 className="font-semibold text-gray-800 mb-3">Library Hours</h4>
+              <div className="space-y-1 text-sm text-gray-600">
+                <p>Monday - Friday: 8:30 AM - 5:00 PM</p>
+                <p>Saturday: 9:00 AM - 1:00 PM</p>
+                <p>Sunday: Closed</p>
+              </div>
             </div>
-            <Link
-              href="/posts"
-              className="text-[#b08d55] hover:text-[#9a7a4a] font-medium flex items-center gap-1 text-sm"
-            >
-              All Updates <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {featuredPosts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredPosts.slice(0, 3).map((post) => (
-                <Link
-                  key={post?.slug}
-                  href={`/posts/${post?.slug}`}
-                  className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition group"
-                >
-                  {post?.featuredImage && (
-                    <div className="aspect-video bg-gray-100 overflow-hidden">
-                      <img
-                        src={post.featuredImage}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition"
-                      />
-                    </div>
-                  )}
-                  <div className="p-5">
-                    <h3 className="font-semibold text-gray-800 mb-2 group-hover:text-[#681e26] transition line-clamp-2">
-                      {post?.title}
-                    </h3>
-                    {post?.summary && (
-                      <p className="text-sm text-gray-600 line-clamp-2 mb-3">{post.summary}</p>
-                    )}
-                    <div className="text-xs text-gray-400">
-                      {post?.publishDate &&
-                        new Date(post.publishDate).toLocaleDateString('en-IN', {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric',
-                        })}
-                    </div>
-                  </div>
+            <div>
+              <h4 className="font-semibold text-gray-800 mb-3">Contact</h4>
+              <div className="space-y-1 text-sm text-gray-600">
+                <p>Phone: +91 494 265 6440</p>
+                <p>Email: library@amaljyothi.ac.in</p>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-800 mb-3">Quick Links</h4>
+              <div className="space-y-1 text-sm">
+                <Link href="/services/forms" className="block text-[#681e26] hover:underline">
+                  Membership Forms
                 </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
-              <Newspaper className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500">No featured posts yet.</p>
-              <Link href="/admin" className="text-[#681e26] hover:underline text-sm mt-2 inline-block">
-                Add posts in admin →
-              </Link>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Departments Grid */}
-      <section className="py-12 px-4 bg-white">
-        <div className="container mx-auto max-w-5xl">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <Building2 className="w-7 h-7 text-[#681e26]" />
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Academic Departments</h2>
-            </div>
-            <Link
-              href="/departments"
-              className="text-[#681e26] hover:text-[#4a1a1f] font-medium flex items-center gap-1 text-sm"
-            >
-              All Departments <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {departments.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {departments.map((dept) => (
-                <Link
-                  key={dept?.slug}
-                  href={`/departments/${dept?.slug}`}
-                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-5 border border-gray-200 hover:border-[#681e26]/30 hover:shadow-md transition group text-center"
-                >
-                  <div className="w-12 h-12 bg-[#681e26]/10 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-[#681e26]/20 transition">
-                    <GraduationCap className="w-6 h-6 text-[#681e26]" />
-                  </div>
-                  <h3 className="font-semibold text-gray-800 text-sm group-hover:text-[#681e26] transition">
-                    {dept?.name}
-                  </h3>
+                <Link href="/services/contact" className="block text-[#681e26] hover:underline">
+                  Ask a Librarian
                 </Link>
-              ))}
+                <Link href="/resources-hub" className="block text-[#681e26] hover:underline">
+                  E-Resources
+                </Link>
+              </div>
             </div>
-          ) : (
-            <div className="bg-gray-50 rounded-lg border border-gray-200 p-8 text-center">
-              <Building2 className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500">No departments added yet.</p>
-              <Link href="/admin" className="text-[#681e26] hover:underline text-sm mt-2 inline-block">
-                Add departments in admin →
-              </Link>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Footer Quick Links */}
-      <section className="py-8 px-4 bg-gray-900 text-white">
-        <div className="container mx-auto max-w-5xl">
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
-            <Link href="/resources" className="hover:text-[#b08d55] transition flex items-center gap-2">
-              <BookOpen className="w-4 h-4" /> Resources
-            </Link>
-            <Link href="/question-bank" className="hover:text-[#b08d55] transition flex items-center gap-2">
-              <FileText className="w-4 h-4" /> Question Bank
-            </Link>
-            <Link href="/departments" className="hover:text-[#b08d55] transition flex items-center gap-2">
-              <Building2 className="w-4 h-4" /> Departments
-            </Link>
-            <Link href="/posts" className="hover:text-[#b08d55] transition flex items-center gap-2">
-              <Newspaper className="w-4 h-4" /> News & Updates
-            </Link>
-            <Link href="/docs" className="hover:text-[#b08d55] transition flex items-center gap-2">
-              <Search className="w-4 h-4" /> Documentation
-            </Link>
-            <Link
-              href="/admin"
-              className="hover:text-[#b08d55] transition flex items-center gap-2 opacity-60"
-            >
-              Admin
-            </Link>
-          </div>
-          <div className="text-center text-gray-500 text-xs mt-6">
-            © {new Date().getFullYear()} Amal College Library. All rights reserved.
           </div>
         </div>
       </section>
     </main>
+  );
+}
+
+function NavCard({
+  href,
+  icon: Icon,
+  title,
+  description,
+  color,
+}: {
+  href: string;
+  icon: typeof Database;
+  title: string;
+  description: string;
+  color: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition group"
+    >
+      <div className={`w-12 h-12 ${color} rounded-xl flex items-center justify-center mb-4`}>
+        <Icon className="w-6 h-6 text-white" />
+      </div>
+      <h3 className="text-lg font-semibold text-gray-800 mb-1 group-hover:text-[#681e26] transition">
+        {title}
+      </h3>
+      <p className="text-sm text-gray-600">{description}</p>
+    </Link>
+  );
+}
+
+function QuickLink({ href, label, sublabel }: { href: string; label: string; sublabel: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition text-center"
+    >
+      <div className="font-medium text-gray-800">{label}</div>
+      <div className="text-xs text-gray-500">{sublabel}</div>
+    </a>
   );
 }
