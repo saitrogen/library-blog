@@ -16,7 +16,7 @@ export default async function DepartmentsPage() {
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#4a6741] to-[#3a5234] text-white">
+      <div className="bg-linear-to-br from-[#4a6741] to-[#3a5234] text-white">
         <div className="max-w-6xl mx-auto px-4 py-12">
           <Link 
             href="/student-zone" 

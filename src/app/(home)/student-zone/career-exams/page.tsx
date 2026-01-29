@@ -32,7 +32,7 @@ export default async function CareerExamsPage() {
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#b08d55] to-[#8a6d3f] text-white">
+      <div className="bg-linear-to-br from-[#b08d55] to-[#8a6d3f] text-white">
         <div className="max-w-6xl mx-auto px-4 py-12">
           <Link 
             href="/student-zone" 

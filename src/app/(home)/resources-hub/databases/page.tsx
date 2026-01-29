@@ -93,7 +93,7 @@ export default async function DatabasesPage() {
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* N-LIST Featured Section */}
         <section className="mb-12">
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white">
+          <div className="bg-linear-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
                 <div className="inline-block px-3 py-1 bg-white/20 rounded-full text-sm mb-3">
