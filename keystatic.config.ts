@@ -1,25 +1,31 @@
 import { config, collection, fields } from '@keystatic/core';
 
+// Vercel auto-sets VERCEL_GIT_* (no NEXT_PUBLIC prefix)  
+// Use those for repo detection, require manual env vars for auth
+const repoOwner = process.env.VERCEL_GIT_REPO_OWNER || process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER;
+const repoSlug = process.env.VERCEL_GIT_REPO_SLUG || process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG;
+
 // Use GitHub mode only in production with ALL required env vars
 // Missing any of these will fallback to local mode (no auth)
 const isGitHubMode =
   process.env.NODE_ENV === 'production' &&
-  process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG &&
-  process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER &&
+  repoSlug &&
+  repoOwner &&
   process.env.KEYSTATIC_GITHUB_CLIENT_ID &&
   process.env.KEYSTATIC_GITHUB_CLIENT_SECRET &&
   process.env.KEYSTATIC_SECRET;
 
-// Debug: Log which mode is being used (only in dev or build)
-if (process.env.NODE_ENV !== 'production' || process.env.VERCEL_ENV === 'preview') {
-  console.log('[Keystatic] Storage mode:', isGitHubMode ? 'github' : 'local');
-  if (!isGitHubMode) {
-    console.log('[Keystatic] Missing env vars for GitHub mode:',
+// Debug: Log which mode is being used
+if (typeof window === 'undefined') { // Server-side only
+  console.log('[Keystatic] Storage mode:', isGitHubMode ? '🔐 github (auth required)' : '📁 local (no auth)');
+  console.log('[Keystatic] Repo:', repoOwner && repoSlug ? `${repoOwner}/${repoSlug}` : 'not detected');
+  if (!isGitHubMode && process.env.NODE_ENV === 'production') {
+    console.warn('[Keystatic] ⚠️  Running in LOCAL mode on production! Missing:',
       !process.env.KEYSTATIC_GITHUB_CLIENT_ID && 'KEYSTATIC_GITHUB_CLIENT_ID',
       !process.env.KEYSTATIC_GITHUB_CLIENT_SECRET && 'KEYSTATIC_GITHUB_CLIENT_SECRET',
       !process.env.KEYSTATIC_SECRET && 'KEYSTATIC_SECRET',
-      !process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER && 'NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER',
-      !process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG && 'NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG'
+      !repoOwner && 'VERCEL_GIT_REPO_OWNER',
+      !repoSlug && 'VERCEL_GIT_REPO_SLUG'
     );
   }
 }
@@ -28,7 +34,7 @@ export default config({
   storage: isGitHubMode
     ? {
         kind: 'github',
-        repo: `${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`,
+        repo: `${repoOwner}/${repoSlug}`,
       }
     : { kind: 'local' },
 
