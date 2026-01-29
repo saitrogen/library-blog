@@ -29,8 +29,8 @@ jobs:
               --body "Auto-generated PR from Keystatic CMS" \
               --base main
             
-            # Enable auto-merge on the newly created PR
-            gh pr merge --squash --auto "${{ github.ref_name }}"
+            # Enable auto-merge on the newly created PR (with branch deletion)
+            gh pr merge --squash --auto --delete-branch "${{ github.ref_name }}"
           else
             echo "PR #$EXISTING_PR already exists for this branch"
           fi
