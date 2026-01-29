@@ -1,9 +1,12 @@
 import { config, collection, fields } from '@keystatic/core';
 
 export default config({
-  storage: {
-    kind: 'local',
-  },
+  storage: process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG
+    ? {
+        kind: 'github',
+        repo: `${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`,
+      }
+    : { kind: 'local' },
 
   collections: {
     resourceLinks: collection({
