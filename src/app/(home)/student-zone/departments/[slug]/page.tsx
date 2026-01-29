@@ -36,7 +36,7 @@ export default async function DepartmentPage({ params }: { params: Promise<{ slu
     <main className="container mx-auto px-4 py-8 max-w-3xl">
       {/* Breadcrumb */}
       <nav className="mb-6 text-sm">
-        <Link href="/departments" className="text-blue-600 hover:text-blue-800">
+        <Link href="/student-zone/departments" className="text-blue-600 hover:text-blue-800">
           ← Back to Departments
         </Link>
       </nav>
