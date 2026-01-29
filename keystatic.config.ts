@@ -164,7 +164,7 @@ export default config({
     posts: collection({
       label: 'Posts',
       slugField: 'title',
-      path: 'content/posts/*',
+      path: 'content/posts/*/',
       format: { contentField: 'content' },
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
@@ -221,7 +221,7 @@ export default config({
     departments: collection({
       label: 'Departments',
       slugField: 'name',
-      path: 'content/departments/*',
+      path: 'content/departments/*/',
       format: { contentField: 'description' },
       schema: {
         name: fields.slug({ name: { label: 'Department Name' } }),
@@ -245,7 +245,7 @@ export default config({
     pages: collection({
       label: 'Pages',
       slugField: 'title',
-      path: 'content/pages/*',
+      path: 'content/pages/*/',
       format: { contentField: 'content' },
       schema: {
         title: fields.slug({ name: { label: 'Page Title' } }),
