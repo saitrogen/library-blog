@@ -1,0 +1,9 @@
+{
+  "title": "Kerala SET Official Portal",
+  "category": "set",
+  "description": "Official portal for Kerala State Eligibility Test with notifications, syllabus, and results.",
+  "url": "https://cee.kerala.gov.in/",
+  "resourceType": "notification",
+  "featured": true,
+  "order": 1
+}

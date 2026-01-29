@@ -13,6 +13,9 @@ export type QuestionBankEntry = Awaited<ReturnType<typeof reader.collections.que
 export type Post = Awaited<ReturnType<typeof reader.collections.posts.read>>;
 export type Department = Awaited<ReturnType<typeof reader.collections.departments.read>>;
 export type Page = Awaited<ReturnType<typeof reader.collections.pages.read>>;
+export type CareerExam = Awaited<ReturnType<typeof reader.collections.careerExams.read>>;
+export type Form = Awaited<ReturnType<typeof reader.collections.forms.read>>;
+export type ResearchAssist = Awaited<ReturnType<typeof reader.collections.researchAssist.read>>;
 
 /**
  * Get all resource links
@@ -144,4 +147,54 @@ export async function getPage(slug: string) {
 export async function getFeaturedResources() {
   const resources = await getAllResources();
   return resources.filter((resource) => resource?.featured);
+}
+
+/**
+ * Get all career exam resources
+ */
+export async function getAllCareerExams() {
+  const slugs = await reader.collections.careerExams.list();
+  const entries = await Promise.all(
+    slugs.map(async (slug) => {
+      const entry = await reader.collections.careerExams.read(slug);
+      return entry ? { slug, ...entry } : null;
+    })
+  );
+  return entries.filter(Boolean).sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0));
+}
+
+/**
+ * Get career exams by category
+ */
+export async function getCareerExamsByCategory(category: string) {
+  const entries = await getAllCareerExams();
+  return entries.filter((entry) => entry?.category === category);
+}
+
+/**
+ * Get all forms
+ */
+export async function getAllForms() {
+  const slugs = await reader.collections.forms.list();
+  const entries = await Promise.all(
+    slugs.map(async (slug) => {
+      const entry = await reader.collections.forms.read(slug);
+      return entry ? { slug, ...entry } : null;
+    })
+  );
+  return entries.filter(Boolean).sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0));
+}
+
+/**
+ * Get all research assistance resources
+ */
+export async function getAllResearchAssist() {
+  const slugs = await reader.collections.researchAssist.list();
+  const entries = await Promise.all(
+    slugs.map(async (slug) => {
+      const entry = await reader.collections.researchAssist.read(slug);
+      return entry ? { slug, ...entry } : null;
+    })
+  );
+  return entries.filter(Boolean).sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0));
 }

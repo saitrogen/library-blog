@@ -1,0 +1,9 @@
+{
+  "title": "UPSC Civil Services Portal",
+  "category": "civil-services",
+  "description": "Official UPSC portal for Civil Services Examination - notifications, syllabus, and results.",
+  "url": "https://upsc.gov.in/",
+  "resourceType": "notification",
+  "featured": true,
+  "order": 1
+}

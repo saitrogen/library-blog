@@ -1,0 +1,9 @@
+{
+  "title": "K-TET Official Notification",
+  "category": "k-tet",
+  "description": "Kerala Teacher Eligibility Test - official portal for exam schedules, syllabus, and eligibility.",
+  "url": "https://ktet.kerala.gov.in/",
+  "resourceType": "notification",
+  "featured": true,
+  "order": 1
+}

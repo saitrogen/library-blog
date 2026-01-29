@@ -1,0 +1,9 @@
+{
+  "title": "PSC Kerala Exam Portal",
+  "category": "psc-kerala",
+  "description": "Kerala Public Service Commission - current notifications, exam calendar, and results.",
+  "url": "https://keralapsc.gov.in/",
+  "resourceType": "notification",
+  "featured": true,
+  "order": 1
+}

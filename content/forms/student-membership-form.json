@@ -1,0 +1,8 @@
+{
+  "title": "Student Library Membership Form",
+  "category": "student-membership",
+  "description": "Application form for new student library membership. Fill this form and submit to the library.",
+  "fileUrl": "https://drive.google.com/student-membership-form",
+  "fileType": "pdf",
+  "order": 1
+}

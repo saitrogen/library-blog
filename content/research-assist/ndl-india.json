@@ -1,0 +1,8 @@
+{
+  "title": "National Digital Library of India",
+  "description": "Access millions of academic resources including textbooks, articles, and theses from India's premier digital library.",
+  "url": "https://ndl.iitkgp.ac.in/",
+  "icon": "library",
+  "featured": true,
+  "order": 1
+}

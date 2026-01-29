@@ -209,5 +209,127 @@ export default config({
         }),
       },
     }),
+
+    careerExams: collection({
+      label: 'Career & Exams',
+      slugField: 'title',
+      path: 'content/career-exams/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.slug({ name: { label: 'Title' } }),
+        category: fields.select({
+          label: 'Category',
+          options: [
+            { label: 'NTA-NET', value: 'nta-net' },
+            { label: 'SET', value: 'set' },
+            { label: 'K-TET', value: 'k-tet' },
+            { label: 'PSC Kerala', value: 'psc-kerala' },
+            { label: 'Civil Services', value: 'civil-services' },
+            { label: 'Other', value: 'other' },
+          ],
+          defaultValue: 'other',
+        }),
+        description: fields.text({
+          label: 'Description',
+          multiline: true,
+        }),
+        url: fields.url({ label: 'Resource URL' }),
+        resourceType: fields.select({
+          label: 'Resource Type',
+          options: [
+            { label: 'Study Material', value: 'study-material' },
+            { label: 'Previous Papers', value: 'previous-papers' },
+            { label: 'Mock Tests', value: 'mock-tests' },
+            { label: 'Syllabus', value: 'syllabus' },
+            { label: 'Notification', value: 'notification' },
+            { label: 'External Link', value: 'external-link' },
+          ],
+          defaultValue: 'study-material',
+        }),
+        featured: fields.checkbox({
+          label: 'Featured',
+          defaultValue: false,
+        }),
+        order: fields.integer({
+          label: 'Display Order',
+          defaultValue: 0,
+        }),
+      },
+    }),
+
+    forms: collection({
+      label: 'Forms & Downloads',
+      slugField: 'title',
+      path: 'content/forms/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.slug({ name: { label: 'Title' } }),
+        category: fields.select({
+          label: 'Category',
+          options: [
+            { label: 'Student Membership', value: 'student-membership' },
+            { label: 'Staff Membership', value: 'staff-membership' },
+            { label: 'Book Request', value: 'book-request' },
+            { label: 'Inter-Library Loan', value: 'inter-library-loan' },
+            { label: 'Other', value: 'other' },
+          ],
+          defaultValue: 'other',
+        }),
+        description: fields.text({
+          label: 'Description',
+          multiline: true,
+        }),
+        fileUrl: fields.url({ label: 'File Download URL' }),
+        fileType: fields.select({
+          label: 'File Type',
+          options: [
+            { label: 'PDF', value: 'pdf' },
+            { label: 'Word Document', value: 'docx' },
+            { label: 'Excel', value: 'xlsx' },
+            { label: 'Online Form', value: 'online' },
+          ],
+          defaultValue: 'pdf',
+        }),
+        order: fields.integer({
+          label: 'Display Order',
+          defaultValue: 0,
+        }),
+      },
+    }),
+
+    researchAssist: collection({
+      label: 'Research Assistance',
+      slugField: 'title',
+      path: 'content/research-assist/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.slug({ name: { label: 'Title' } }),
+        description: fields.text({
+          label: 'Description',
+          multiline: true,
+        }),
+        url: fields.url({ label: 'Resource URL' }),
+        icon: fields.select({
+          label: 'Icon',
+          options: [
+            { label: 'Library', value: 'library' },
+            { label: 'Book', value: 'book' },
+            { label: 'Search', value: 'search' },
+            { label: 'Database', value: 'database' },
+            { label: 'Video', value: 'video' },
+            { label: 'Link', value: 'link' },
+          ],
+          defaultValue: 'link',
+        }),
+        featured: fields.checkbox({
+          label: 'Featured',
+          defaultValue: false,
+        }),
+        order: fields.integer({
+          label: 'Display Order',
+          defaultValue: 0,
+        }),
+      },
+    }),
   },
 });
